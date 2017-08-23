@@ -10,7 +10,7 @@ lunarPHP
 
 根据以下开源项目修改整合封装的一个php易经六十四卦排盘类库，只需要引入路口文件就可以简单的调用方法求出卦象结果
 
-- [64divine](https://github.com/jyiL/64divine).
+- [64divine](https://github.com/tc31/64divine).
 
 
 
