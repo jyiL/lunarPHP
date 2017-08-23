@@ -21,6 +21,7 @@ class example
     private $DZ = array('Y','M','D');
     public $error;
     private $db;
+    private $hour;
 
     public function __construct($date)
     {
@@ -32,7 +33,7 @@ class example
         $this->calendar = new Calendar($this->date);
         $this->lunar = new Lunar();
         $this->hexagrams = new Hexagrams();
-        var_dump(HOUR);exit;
+        $this->hour = json_decode(HOUR,true);
         $this->log = new Logger();
         $this->log->conf["log_file"] = str_replace('\\','/',dirname(__FILE__)).'/logs/'.'lunar_err_'.date("Y-m-d").'.log';
         $this->log->conf["separator"] = "^_^";
@@ -107,7 +108,7 @@ class example
         $res['originYear'] = $this->year;
         $res['originMonth'] = $this->month;
         $res['originDay'] = $this->day;
-        $res['hour'] = 1;
+        $res['hour'] = $this->hour['子时'];
         $res['convertYear'] = $data['convertCYear'];
         $res['convertMonth'] = $data['convertNMonth'];
         $res['convertDay'] = $data['convertNDay'];
