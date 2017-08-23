@@ -48,6 +48,17 @@ lunarPHP
 ├─README.md             README 文件
 ~~~
 
+## REQUIREMENTS
+
+~~~
+请先导入 /database/gua.sql 到本地数据库，否则无法查询卦象结果
+~~~
+
+## QUICK START
+~~~
+require_once 'LunarPHP.php';
+~~~
+
 ## License
 
 lunarPHP is open-sourced software licensed under the WTFPL license.
