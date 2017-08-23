@@ -26,7 +26,7 @@ class Autoloader
         if ( strncmp(self::NAMESPACE_PREFIX, $className, $namespacePrefixStrlen) === 0 ){
             $className = strtolower($className);
             $filePath = str_replace('\\', DIRECTORY_SEPARATOR, substr($className, $namespacePrefixStrlen));
-            $filePath = realpath(__DIR__ . (empty($filePath) ? '' : DIRECTORY_SEPARATOR) . $filePath . '.lrp.php');
+            $filePath = realpath(__DIR__ . ( empty($filePath) ? '' : DIRECTORY_SEPARATOR) . $filePath . '.lrp.php' );
             if ( file_exists($filePath) ) {
                 require_once $filePath;
             } else {
