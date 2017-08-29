@@ -21,6 +21,20 @@ $db_conf = array(
 
 define('DB_CONFIG',json_encode($db_conf));
 
+/**
+ * 日志配置
+ */
+$log_conf = array(
+    'log_file'    =>    'logs',
+    'separator'   =>    '^_^',
+);
+
+define('LOG_CONF',json_encode($log_conf));
+
+
+// 当前路径
+define('SITE_PATH', dirname(dirname(__FILE__)) . "/");
+
 
 //版本号
 define('LUNARPHP_VERSION', '1.0');
