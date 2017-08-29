@@ -2,8 +2,6 @@
 
 namespace LunarPHP\Core;
 
-require_once 'GanZhi.php';
-
 /**
  *author:dequan
  *date:2016-06-20

@@ -1,8 +1,10 @@
 <?php
+
 namespace LunarPHP\Core;
 
-require_once 'GanZhi.php';
-
+/**
+ * Lunar
+ */
 class Lunar
 {
     var $MIN_YEAR = 1891;

@@ -2,6 +2,9 @@
 
 namespace LunarPHP\Core;
 
+/**
+ * 日志类
+ */
 class Logger
 {
 	public $conf = array(

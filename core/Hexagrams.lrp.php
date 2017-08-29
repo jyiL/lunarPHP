@@ -2,6 +2,9 @@
 
 namespace LunarPHP\Core;
 
+/**
+ * Hexagrams
+ */
 class Hexagrams
 {
     public $error;

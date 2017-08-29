@@ -1,7 +1,6 @@
 <?php
-namespace LunarPHP\Core;
 
-use LunarPHP\Core\Logger;
+namespace LunarPHP\Core;
 
 /**
  * 数据库模型
@@ -11,17 +10,21 @@ use LunarPHP\Core\Logger;
 class Model
 {
     private $db;
-    private $_table = 'gua';
+    private $_table = '';
     private $log;
 
-    public function __construct($dbms,$servername, $dbName, $username, $password)
+    public function __construct($table)
     {
+        $this->_table = $table;
+
+        $db_config = json_decode(DB_CONFIG,true);
+
         $this->log = new Logger();
 
-        $dsn = "$dbms:host=$servername;dbname=$dbName";
+        $dsn = $db_config['dbms'].":host=".$db_config['serverName'].";dbname=".$db_config['dbName'];
 
         try {
-            $this->db = new \PDO($dsn, $username, $password, array(\PDO::ATTR_PERSISTENT => true));
+            $this->db = new \PDO($dsn, $db_config['user'], $db_config['pass'], array(\PDO::ATTR_PERSISTENT => true));
         } catch (\PDOException $e) {
             $this->log->log('数据库连接失败：'.$e->getMessage());
             die ("Error!: " . $e->getMessage() . "<br/>");
