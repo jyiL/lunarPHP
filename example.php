@@ -35,8 +35,6 @@ class example
         $this->hexagrams = new Hexagrams();
         $this->hour = json_decode(HOUR,true);
         $this->log = new Logger();
-        $this->log->conf["log_file"] = str_replace('\\','/',dirname(__FILE__)).'/logs/'.'lunar_err_'.date("Y-m-d").'.log';
-        $this->log->conf["separator"] = "^_^";
         $this->db = new Model($db_config['dbms'],$db_config['serverName'],$db_config['dbName'],$db_config['user'],$db_config['pass']);
     }
 
