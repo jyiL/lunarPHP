@@ -25,7 +25,6 @@ class example
 
     public function __construct($date)
     {
-        $db_config = json_decode(DB_CONFIG,true);
         $this->date = $date;
         $this->year = date("Y",strtotime($date));
         $this->month = date("m",strtotime($date));
@@ -35,7 +34,7 @@ class example
         $this->hexagrams = new Hexagrams();
         $this->hour = json_decode(HOUR,true);
         $this->log = new Logger();
-        $this->db = new Model($db_config['dbms'],$db_config['serverName'],$db_config['dbName'],$db_config['user'],$db_config['pass']);
+        $this->db = new Model('gua');
     }
 
     /**
