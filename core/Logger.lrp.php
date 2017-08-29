@@ -11,6 +11,13 @@ class Logger
 
 	private $fileHandle;
 
+    public function __construct()
+    {
+        $conf = json_decode(LOG_CONF,true);
+        $this->conf['separator'] = $conf['separator'];
+        $this->conf['log_file'] = SITE_PATH.$conf['log_file'].'/lunar_err_'.date("Y-m-d").'.log';;
+    }
+
 	protected function getFileHandle()
 	{
 		if (null === $this->fileHandle)

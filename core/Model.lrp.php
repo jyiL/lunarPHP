@@ -17,8 +17,6 @@ class Model
     public function __construct($dbms,$servername, $dbName, $username, $password)
     {
         $this->log = new Logger();
-        $this->log->conf["log_file"] = str_replace('\\','/',dirname(__FILE__)).'/logs/'.'lunar_err_'.date("Y-m-d").'.log';
-        $this->log->conf["separator"] = "^_^";
 
         $dsn = "$dbms:host=$servername;dbname=$dbName";
 
