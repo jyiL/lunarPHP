@@ -22,10 +22,11 @@ class example
     private $DZ = array('Y','M','D');
     public $error;
     private $db;
-    private $hour;
+    public $hour;
+    private $hourList;
     public $constellation;
 
-    public function __construct($date)
+    public function __construct($date, $hour = '子时')
     {
         $this->date = $date;
         $this->year = date("Y",strtotime($date));
@@ -34,7 +35,8 @@ class example
         $this->calendar = new Calendar($this->date);
         $this->lunar = new Lunar();
         $this->hexagrams = new Hexagrams();
-        $this->hour = json_decode(HOUR,true);
+        $this->hourList = json_decode(HOUR,true);
+        $this->hour = $this->hourList[$hour];
         $this->log = new Logger();
         $this->db = new Model('gua');
         $this->constellation = new Constellation();
@@ -108,7 +110,7 @@ class example
         $res['originYear'] = $this->year;
         $res['originMonth'] = $this->month;
         $res['originDay'] = $this->day;
-        $res['hour'] = $this->hour['子时'];
+        $res['hour'] = $this->hour;
         $res['convertYear'] = $data['convertCYear'];
         $res['convertMonth'] = $data['convertNMonth'];
         $res['convertDay'] = $data['convertNDay'];
@@ -193,10 +195,20 @@ class example
     }
 }
 
-$date = '1992-01-15';
-$example = new example($date);
 echo '<pre>';
+/** 阳历日期 **/
+$date = '1992-01-15';
+
+/** 时辰 **/
+$hour = '子时';    // 子时 丑时 寅时 卯时 辰时 巳时 午时 未时 申时 酉时 戌时 亥时
+
+/** 实例化 **/
+$example = new example($date, $hour);    // 不传时辰默认子时
+
+/** 获取卦象结果 **/
 $gua = $example->getDisplay();
+
+/** 打印结果 **/
 var_dump($gua);
 exit;
 
