@@ -37,5 +37,5 @@ define('SITE_PATH', dirname(dirname(__FILE__)) . "/");
 
 
 //版本号
-define('LUNARPHP_VERSION', '1.0');
+define('LUNARPHP_VERSION', '1.5');
 define('LUNARPHP_VERSION_DATE', '2017-08-18');
