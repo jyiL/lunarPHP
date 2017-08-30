@@ -42,7 +42,8 @@ class Hexagrams
     /**
      * getEvent
      */
-    private function getEvent($urlParam) {
+    private function getEvent($urlParam)
+    {
         $result = array();
 
 
@@ -212,7 +213,8 @@ class Hexagrams
     /**
      * 時辰起卦
      */
-    private function getDestiny($urlParam, $event) {
+    private function getDestiny($urlParam, $event)
+    {
         $monthType = $urlParam['convertMonth'] % 8;
         $monthType = ( $monthType == 0 ) ? 8 : $monthType;
         $dayType = $urlParam['convertDay'] % 8;
@@ -239,7 +241,8 @@ class Hexagrams
     /**
      * 獲取生肖
      */
-    private function getAnimal($dayText) {
+    private function getAnimal($dayText)
+    {
         $currIndex = 1;
         switch ( $dayText ) {
             case $this->lang['home_sky3']:
@@ -291,7 +294,8 @@ class Hexagrams
     }
 
 
-    private function getSymbol($type) {
+    private function getSymbol($type)
+    {
         $temp = '';
         switch ( $type ) {
             case 1:
@@ -349,7 +353,8 @@ class Hexagrams
         return $result;
     }
 
-    private function getFamily($upSymbolType, $downSymbolType, $emptyType, $brokenType) {
+    private function getFamily($upSymbolType, $downSymbolType, $emptyType, $brokenType)
+    {
         $result = array();
 
         $emptys = array();
@@ -629,7 +634,8 @@ class Hexagrams
     /**
      * getSoul
      */
-    private function getSoul($hour) {
+    private function getSoul($hour)
+    {
         $hour = ( $hour != 0 ) ? $hour : 6;
 
 
@@ -639,7 +645,8 @@ class Hexagrams
     /**
      * getConvertSymbol
      */
-    private function getConvertSymbol($dayType, $monthType, $hourType, $event) {
+    private function getConvertSymbol($dayType, $monthType, $hourType, $event)
+    {
         if ( !$hourType ) {
             return array();
         }
@@ -687,7 +694,8 @@ class Hexagrams
     /**
      * convertType
      */
-    private function convertType($type, $hour) {
+    private function convertType($type, $hour)
+    {
         if ( !$hour ) {
             return $type;
         }
