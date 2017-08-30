@@ -7,6 +7,7 @@ use LunarPHP\Core\Calendar;
 use LunarPHP\Core\Model;
 use LunarPHP\Core\Hexagrams;
 use LunarPHP\Core\Logger;
+use LunarPHP\Core\Constellation;
 
 class example
 {
@@ -22,6 +23,7 @@ class example
     public $error;
     private $db;
     private $hour;
+    public $constellation;
 
     public function __construct($date)
     {
@@ -35,6 +37,7 @@ class example
         $this->hour = json_decode(HOUR,true);
         $this->log = new Logger();
         $this->db = new Model('gua');
+        $this->constellation = new Constellation();
     }
 
     /**
@@ -115,7 +118,7 @@ class example
         $res['animal'] = $data['animal'];
         $res['type'] = 'destiny';
 
-        return $this->getRow($this->hexagrams->getDisplay($res));
+        return $this->disposalArray($this->getRow($this->hexagrams->getDisplay($res)));
     }
 
     /**
@@ -154,15 +157,48 @@ class example
 
         return $res;
     }
+
+
+    /**
+     * 数组处理
+     * @param array $arr
+     * @return array
+     */
+    private function disposalArray($arr)
+    {
+        $arr['content'] = preg_replace('/&#13;/','',$arr['content']);
+        echo '<pre>';
+
+        $arr['content'] = preg_replace('#<div([\s\S])(.*)<\/div>#is', '',$arr['content']);
+
+        $arr['content']  = preg_replace("#\s|　#","",$arr['content']);
+
+        $arr['content'] = strip_tags($arr['content']);
+        $content = preg_split( "#【(.*?)】+#",$arr['content'] );
+        preg_match_all( "#【(.*?)】+#",$arr['content'],$title );
+        unset($content[0]);
+        $tmp = array_combine($title[0],$content);
+
+        foreach ($tmp as $title => $content) {
+            $data[] = array(
+                'title' =>  $title,
+                'content' =>  $content,
+            );
+        }
+
+        return array(
+            'name'  =>  $arr['name'],
+            'dataList'  =>  $data,
+        );
+    }
 }
 
-$date = '1992-10-14';
+$date = '1992-01-15';
 $example = new example($date);
 echo '<pre>';
 $gua = $example->getDisplay();
 var_dump($gua);
 exit;
-
 
 
 
