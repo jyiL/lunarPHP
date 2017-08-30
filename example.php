@@ -26,20 +26,21 @@ class example
     private $hourList;
     public $constellation;
 
-    public function __construct($date, $hour = '子时')
+    public function __construct( $date, $hour = '子时' )
     {
-        $this->date = $date;
-        $this->year = date("Y",strtotime($date));
-        $this->month = date("m",strtotime($date));
-        $this->day = date("d",strtotime($date));
+        $this->date = $date;    // 阳历日期
+        $this->year = date("Y",strtotime($date));    // 年
+        $this->month = date("m",strtotime($date));    // 月
+        $this->day = date("d",strtotime($date));    // 日
         $this->calendar = new Calendar($this->date);
         $this->lunar = new Lunar();
         $this->hexagrams = new Hexagrams();
-        $this->hourList = json_decode(HOUR,true);
-        $this->hour = $this->hourList[$hour];
         $this->log = new Logger();
         $this->db = new Model('gua');
         $this->constellation = new Constellation();
+
+        $this->hourList = json_decode(HOUR,true);    // 时辰数组
+        $this->hour = $this->hourList[$hour];
     }
 
     /**
@@ -48,7 +49,7 @@ class example
      * @param boolean $suffix 是否显示后缀
      * return string
      */
-    public function getGanZhi($type, $suffix = true)
+    public function getGanZhi( $type, $suffix = true )
     {
         $type = is_string($type) ? strtoupper($type) : false;
         if ( !in_array($type, $this->DZ) ) {
@@ -107,6 +108,7 @@ class example
     public function getDisplay()
     {
         $data = $this->convertSolarToLunar();
+
         $res['originYear'] = $this->year;
         $res['originMonth'] = $this->month;
         $res['originDay'] = $this->day;
@@ -131,26 +133,33 @@ class example
     private function getRow($data)
     {
         $keyWorld = '婚姻';
+
         /** 判断有没有变卦 **/
         if ( array_key_exists('convert',$data) && !empty($data['convert']) ) {
             $where = "name like '%{$data['convert']}%$keyWorld%'";
+
             $tmp = $this->db->query('*', $where);
+
             if (!$tmp) {
                 $where = "name like '%{$data['convert']}%'";
                 $tmp = $this->db->query('*', $where);
             }
+
             $res['name'] = $data['convert'];
         } else {
             $where = "name like '%{$data['origin']}%$keyWorld%'";
             $tmp = $this->db->query($where);
+
             if (!$tmp) {
                 $where = "name like '%{$data['origin']}%'";
                 $tmp = $this->db->query($where);
             }
+
             $res['name'] = $data['origin'];
         }
 
         $sfHexagrams = '';
+
         foreach ($tmp as $val) {
             $sfHexagrams .= $val['content'];
         }
@@ -169,16 +178,19 @@ class example
     private function disposalArray($arr)
     {
         $arr['content'] = preg_replace('/&#13;/','',$arr['content']);
-        echo '<pre>';
 
         $arr['content'] = preg_replace('#<div([\s\S])(.*)<\/div>#is', '',$arr['content']);
 
         $arr['content']  = preg_replace("#\s|　#","",$arr['content']);
 
         $arr['content'] = strip_tags($arr['content']);
+
         $content = preg_split( "#【(.*?)】+#",$arr['content'] );
+
         preg_match_all( "#【(.*?)】+#",$arr['content'],$title );
+
         unset($content[0]);
+
         $tmp = array_combine($title[0],$content);
 
         foreach ($tmp as $title => $content) {
@@ -196,6 +208,7 @@ class example
 }
 
 echo '<pre>';
+
 /** 阳历日期 **/
 $date = '1992-01-15';
 
@@ -210,6 +223,7 @@ $gua = $example->getDisplay();
 
 /** 打印结果 **/
 var_dump($gua);
+
 exit;
 
 
