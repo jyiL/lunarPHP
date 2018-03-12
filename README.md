@@ -61,4 +61,4 @@ require_once 'LunarPHP.php';
 
 ## License
 
-lunarPHP is open-sourced software licensed under the WTFPL license.
+lunarPHP is open-sourced software licensed under the [WTFPL license](http://www.wtfpl.net/about/).
