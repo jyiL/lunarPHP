@@ -2,7 +2,7 @@ lunarPHP
 ===============
 [![Latest Stable Version](https://poser.pugx.org/jyil/lunar-php/v/stable)](https://packagist.org/packages/jyil/lunar-php)
 [![Total Downloads](https://poser.pugx.org/jyil/lunar-php/downloads)](https://packagist.org/packages/jyil/lunar-php)
-[![Latest Unstable Version](https://poser.pugx.org/jyil/lunar-php/v/unstable)](https://packagist.org/packages/jyil/lunar-php)
+[![Latest Stable Version](https://poser.pugx.org/jyil/lunar-php/v/stable)](https://packagist.org/packages/jyil/lunar-php)
 [![License](https://poser.pugx.org/jyil/lunar-php/license)](https://packagist.org/packages/jyil/lunar-php)
 
 
@@ -14,7 +14,7 @@ lunarPHP
 
 
 
-> 运行环境要求PHP5.4以上。
+> 运行环境要求PHP7以上。
 
 ## 目录结构
 
@@ -28,6 +28,7 @@ lunarPHP
 │  ├─Logger.lrp.php
 │  ├─Lunar.lrp.php
 │  └─Model.lrp.php
+│  └─Common.lrp.php
 │
 ├─config                系统配置文件
 │  └─config.php
