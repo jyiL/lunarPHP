@@ -4,10 +4,10 @@ require_once 'LunarPHP.php';
 
 use LunarPHP\Core\Lunar;
 use LunarPHP\Core\Calendar;
-use LunarPHP\Core\Model;
 use LunarPHP\Core\Hexagrams;
 use LunarPHP\Core\Logger;
 use LunarPHP\Core\Constellation;
+use LunarPHP\Core\Common;
 
 class example
 {
@@ -21,12 +21,11 @@ class example
     private $day;
     private $DZ = array('Y','M','D');
     public $error;
-    private $db;
     public $hour;
     private $hourList;
-    public $constellation;
+    private $common;
 
-    public function __construct( $date, $hour = '子时' )
+    public function __construct( $date, $hour = '子时', Common $common )
     {
         $this->date = $date;    // 阳历日期
         $this->year = date("Y",strtotime($date));    // 年
@@ -36,10 +35,10 @@ class example
         $this->lunar = new Lunar();
         $this->hexagrams = new Hexagrams();
         $this->log = new Logger();
-        $this->db = new Model('gua');
-        $this->constellation = new Constellation();
+        $this->common = $common;
 
         $this->hourList = json_decode(HOUR,true);    // 时辰数组
+        $this->guaData = json_decode(GUA_DATA,true);    // 卦象数据
         $this->hour = $this->hourList[$hour];
     }
 
@@ -136,35 +135,25 @@ class example
 
         /** 判断有没有变卦 **/
         if ( array_key_exists('convert',$data) && !empty($data['convert']) ) {
-            $where = "name like '%{$data['convert']}%$keyWorld%'";
+            $tmp = $this->common->arr_blurry_query([$data['convert'], $keyWorld], $this->guaData);
 
-            $tmp = $this->db->query('*', $where);
-
-            if (!$tmp) {
-                $where = "name like '%{$data['convert']}%'";
-                $tmp = $this->db->query('*', $where);
-            }
+            if (!$tmp) 
+                $tmp = $this->common->arr_blurry_query($data['convert'], $this->guaData);
 
             $res['name'] = $data['convert'];
+            $res['content'] = $tmp['content'];
         } else {
-            $where = "name like '%{$data['origin']}%$keyWorld%'";
-            $tmp = $this->db->query($where);
+            $tmp = $this->common->arr_blurry_query([$data['origin'], $keyWorld], $this->guaData);
 
-            if (!$tmp) {
-                $where = "name like '%{$data['origin']}%'";
-                $tmp = $this->db->query($where);
-            }
+            if (!$tmp) 
+                $tmp = $this->common->arr_blurry_query($data['origin'], $this->guaData);
 
             $res['name'] = $data['origin'];
         }
 
         $sfHexagrams = '';
 
-        foreach ($tmp as $val) {
-            $sfHexagrams .= $val['content'];
-        }
-
-        $res['content'] = $sfHexagrams;
+        $res['content'] = $tmp['content'];
 
         return $res;
     }
@@ -177,6 +166,7 @@ class example
      */
     private function disposalArray($arr)
     {
+        var_dump($arr);exit;
         $arr['content'] = preg_replace('/&#13;/','',$arr['content']);
 
         $arr['content'] = preg_replace('#<div([\s\S])(.*)<\/div>#is', '',$arr['content']);
@@ -209,14 +199,18 @@ class example
 
 echo '<pre>';
 
+$optArr = getopt('d:h:');
+
 /** 阳历日期 **/
-$date = '1992-01-15';
+// $date = '1992-01-15';
+$date = $optArr['d'] ?? '1992-01-15';
 
 /** 时辰 **/
-$hour = '子时';    // 子时 丑时 寅时 卯时 辰时 巳时 午时 未时 申时 酉时 戌时 亥时
+// $hour = '子时';    // 子时 丑时 寅时 卯时 辰时 巳时 午时 未时 申时 酉时 戌时 亥时
+$hour = $optArr['h'] ?? '子时';
 
 /** 实例化 **/
-$example = new example($date, $hour);    // 不传时辰默认子时
+$example = new example($date, $hour, new Common());    // 不传时辰默认子时
 
 /** 获取卦象结果 **/
 $gua = $example->getDisplay();

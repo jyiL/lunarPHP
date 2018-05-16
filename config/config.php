@@ -35,7 +35,16 @@ define('LOG_CONF',json_encode($log_conf));
 // 当前路径
 define('SITE_PATH', dirname(dirname(__FILE__)) . "/");
 
+/**
+ * json数据 
+ */
+$gua_json = file_get_contents(SITE_PATH.'/database/gua.json');
+$constellation_json = file_get_contents(SITE_PATH.'/database/constellation.json');
+
+define('GUA_DATA', $gua_json);
+define('CONSTELLATION_DATA', $constellation_json);
+
 
 //版本号
-define('LUNARPHP_VERSION', '1.5');
-define('LUNARPHP_VERSION_DATE', '2017-08-18');
+define('LUNARPHP_VERSION', '1.6');
+define('LUNARPHP_VERSION_DATE', '2018-05-16');
