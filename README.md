@@ -2,7 +2,6 @@ lunarPHP
 ===============
 [![Latest Stable Version](https://poser.pugx.org/jyil/lunar-php/v/stable)](https://packagist.org/packages/jyil/lunar-php)
 [![Total Downloads](https://poser.pugx.org/jyil/lunar-php/downloads)](https://packagist.org/packages/jyil/lunar-php)
-[![Latest Stable Version](https://poser.pugx.org/jyil/lunar-php/v/stable)](https://packagist.org/packages/jyil/lunar-php)
 [![License](https://poser.pugx.org/jyil/lunar-php/license)](https://packagist.org/packages/jyil/lunar-php)
 
 
