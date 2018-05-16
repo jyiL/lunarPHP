@@ -32,8 +32,8 @@ lunarPHP
 ├─config                系统配置文件
 │  └─config.php
 │
-├─database              数据库文件
-│  └─gua.sql
+├─database              数据文件
+│  └─gua.json
 │
 ├─language              语言包
 │  └─language.php
@@ -48,10 +48,10 @@ lunarPHP
 ├─README.md             README 文件
 ~~~
 
-## REQUIREMENTS
+## EXAMPLE
 
 ~~~
-请先导入 /database/gua.sql 到本地数据库，否则无法查询卦象结果
+php example.php -d yyyy-mm-dd -h 时辰
 ~~~
 
 ## QUICK START
